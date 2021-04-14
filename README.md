@@ -3,7 +3,7 @@
 Make a Vagrant box with CentOS 8 LAMP stack, plus configure it for development.
 
 - Host: Linux or Mac.
-- Guest: CentOS 8.3, Apache 2.4, MariaDB 10.5, PHP 7.4, Git 2.27.
+- Guest: CentOS 8.3, Apache 2.4, MariaDB 10.5, PHP 7.4, Python 2 & 3, Git 2.27.
 
 - Leave code and version control files physically outside the VM while virtually accessing them inside the VM.
 - Use any GUI tool (IDEs, browsers, database administration applications, Git clients) outside the VM to access code and data inside the VM.
