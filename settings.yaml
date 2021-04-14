@@ -1,0 +1,29 @@
+---
+:machine:
+  :hostname: "centos-8"
+  :memory: "3072" # 3GB RAM
+  :cpus: 1
+
+:vm_folder:
+  :host: "~/VM"
+  :guest: "/home/vagrant/VM"
+
+:synced_folder:
+  :host: "~/Code"
+  :guest: "/home/vagrant/Code"
+
+:forwarded_ports:
+  # HTTP
+- :host: 8000
+  :guest: 80
+  # MySQL
+- :host: 33060
+  :guest: 3306
+
+:copy_files:
+- :source: "~/.ssh"
+  :destination: "/home/vagrant/.ssh"
+- :source: "~/.gitconfig"
+  :destination: "/home/vagrant/.gitconfig"
+- :source: "~/.subversion"
+  :destination: "/home/vagrant/.subversion"
