@@ -27,7 +27,6 @@ cp $VM_CONFIG_PATH/localhost.conf /etc/httpd/conf.d/localhost.conf
 cp $VM_CONFIG_PATH/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost.conf
-# cp /usr/share/httpd/noindex/index.html.en-US /usr/share/httpd/noindex/index.html
 
 echo '==> Fixing localhost SSL certificate'
 
