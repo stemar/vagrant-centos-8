@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, port_options
   end
 
-  # Synchronize code folder
+  # Synchronize folder
   config.vm.synced_folder settings[:synced_folder][:host], settings[:synced_folder][:guest], owner: "vagrant", group: "vagrant"
 
   # Copy files from host machine
