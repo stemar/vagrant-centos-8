@@ -4,10 +4,6 @@
   :memory: "3072" # 3GB RAM
   :cpus: 1
 
-:synced_folder:
-  :host: "~/Code"
-  :guest: "/home/vagrant/Code"
-
 :forwarded_ports:
   # HTTP
 - :host: 8000
@@ -15,6 +11,10 @@
   # MySQL
 - :host: 33060
   :guest: 3306
+
+:synced_folder:
+  :host: "~/Code"
+  :guest: "/home/vagrant/Code"
 
 :copy_files:
 - :source: "~/.ssh"

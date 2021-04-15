@@ -17,13 +17,13 @@ Vagrant.configure("2") do |config|
   # vagrant@centos-8
   config.vm.hostname = settings[:machine][:hostname]
 
-  # Synchronize code folder
-  config.vm.synced_folder settings[:synced_folder][:host], settings[:synced_folder][:guest], owner: "vagrant", group: "vagrant"
-
   # Apache: http://localhost:8000
   settings[:forwarded_ports].each do |port_options|
     config.vm.network :forwarded_port, port_options
   end
+
+  # Synchronize code folder
+  config.vm.synced_folder settings[:synced_folder][:host], settings[:synced_folder][:guest], owner: "vagrant", group: "vagrant"
 
   # Copy files from host machine
   settings[:copy_files].each do |file_options|
