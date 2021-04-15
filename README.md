@@ -41,12 +41,11 @@ vagrant ssh
 - Provisioning in `bash` because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
 - Keep multiple Vagrant boxes in a separate location than your projects/code location.
     - `.vagrant/` is created independently within each VM directory.
-    - Avoid port collision by editing `settings.yaml`.
     - Multiple Vagrant boxes can be run concurrently from separate terminal tabs.
+    - Avoid port collision by editing `:forwarded_ports` values in `settings.yaml`.
 - Copied SSH keys to use the same in and out of VM.
 - Copied Git and Subversion configurations to use the same in and out of VM.
 - Synchronized projects/code directories.
-    - Disabled default `/vagrant` synchronized to `Vagrantfile`'s location.
 - Apache serves any local website at `http://domain.com.localhost:8000` with [VirtualDocumentRoot](https://httpd.apache.org/docs/2.4/mod/mod_vhost_alias.html).
 - Add more VirtualHost blocks from the host machine and re-provision the Vagrant box.
 - MySQL and Adminer with no password for username `root`.
@@ -144,7 +143,7 @@ Check synchronized folders:
 
 ```bash
 ll ~/Code
-ll ~/VM
+ll /vagrant
 ```
 
 Check versions:

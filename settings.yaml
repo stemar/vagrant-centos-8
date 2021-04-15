@@ -4,10 +4,6 @@
   :memory: "3072" # 3GB RAM
   :cpus: 1
 
-:vm_folder:
-  :host: "~/VM"
-  :guest: "/home/vagrant/VM"
-
 :synced_folder:
   :host: "~/Code"
   :guest: "/home/vagrant/Code"
