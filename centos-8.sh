@@ -77,14 +77,18 @@ sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.con
 sed -i 's|login($we,$F){if($F=="")return|login($we,$F){if(true)|' /usr/share/adminer/adminer.php
 
 echo '==> Starting Apache'
-ln -s /usr/lib/systemd/system/httpd.service /etc/systemd/system/multi-user.target.wants/httpd.service
+if [ -L /usr/lib/systemd/system/httpd.service ] ; then
+    ln -s /usr/lib/systemd/system/httpd.service /etc/systemd/system/multi-user.target.wants/httpd.service
+fi
 apachectl configtest
 systemctl start httpd
 systemctl enable httpd
 
 echo '==> Starting MariaDB'
 
-ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/mariadb.service
+if [ -L /usr/lib/systemd/system/mariadb.service ] ; then
+    ln -s /usr/lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/mariadb.service
+fi
 systemctl start mariadb
 systemctl enable mariadb
 mysqladmin -u root password ""
