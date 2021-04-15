@@ -30,10 +30,14 @@ sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost
 
 echo '==> Fixing localhost SSL certificate'
 
-cp $VM_CONFIG_PATH/localhost.crt /etc/pki/tls/certs/localhost.crt
-cp $VM_CONFIG_PATH/localhost.key /etc/pki/tls/private/localhost.key
-chmod u=rw /etc/pki/tls/certs/localhost.crt
-chmod u=rw /etc/pki/tls/private/localhost.key
+if [ ! -f /etc/pki/tls/certs/localhost.crt ]; then
+    cp $VM_CONFIG_PATH/localhost.crt /etc/pki/tls/certs/localhost.crt
+    chmod u=rw /etc/pki/tls/certs/localhost.crt
+fi
+if [ ! -f /etc/pki/tls/private/localhost.key ]; then
+    cp $VM_CONFIG_PATH/localhost.key /etc/pki/tls/private/localhost.key
+    chmod u=rw /etc/pki/tls/private/localhost.key
+fi
 
 echo '==> Setting MariaDB 10.5 repository'
 
@@ -70,11 +74,11 @@ echo '==> Installing Adminer'
 if [ ! -d /usr/share/adminer ]; then
     mkdir -p /usr/share/adminer
     curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/adminer.php
+    sed -i 's|login($we,$F){if($F=="")return|login($we,$F){if(true)|' /usr/share/adminer/adminer.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
 cp $VM_CONFIG_PATH/adminer.conf /etc/httpd/conf.d/adminer.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
-sed -i 's|login($we,$F){if($F=="")return|login($we,$F){if(true)|' /usr/share/adminer/adminer.php
 
 echo '==> Starting Apache'
 if [ ! -L /etc/systemd/system/multi-user.target.wants/httpd.service ] ; then
