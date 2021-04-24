@@ -5,6 +5,10 @@
   :cpus: 1
 
 :forwarded_ports:
+# SSH
+- :id: ssh
+  :host: 2200
+  :guest: 22
 # HTTP
 - :host: 8000
   :guest: 80
