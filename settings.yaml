@@ -1,5 +1,6 @@
 ---
 :machine:
+  :timezone: Canada/Pacific
   :hostname: "centos-8"
   :memory: "3072" # 3GB RAM
   :cpus: 1
