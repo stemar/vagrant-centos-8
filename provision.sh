@@ -61,9 +61,11 @@ echo '==> Installing PHP'
 dnf -q -y install php php-cli php-common \
     php-bcmath php-devel php-gd php-intl php-ldap php-mcrypt php-mysqlnd \
     php-pear php-soap php-xdebug php-xmlrpc
-cp $VM_CONFIG_PATH/php.ini.htaccess /var/www/.htaccess
 cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf~
 cp $VM_CONFIG_PATH/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf
+cp $VM_CONFIG_PATH/php.ini.htaccess /var/www/.htaccess
+PHP_ERROR_REPORTING_INT=$(php -r 'echo '"$PHP_ERROR_REPORTING"';')
+sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htaccess
 
 echo '==> Installing Python'
 
