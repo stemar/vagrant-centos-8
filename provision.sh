@@ -1,7 +1,7 @@
 echo '==> Setting time zone'
 
 timedatectl set-timezone $TIMEZONE
-timedatectl | grep 'Time zone:'
+timedatectl | grep 'Time zone:' | xargs
 
 echo '==> Cleaning yum cache'
 
