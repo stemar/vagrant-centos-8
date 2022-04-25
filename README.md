@@ -3,7 +3,7 @@
 Make a Vagrant box with CentOS 8 LAMP stack, plus configure it for development.
 
 - Host: Linux or Mac.
-- Guest: CentOS 8.3, Apache 2.4, MariaDB 10.5, PHP 7.4, Python 2 & 3, Git 2+.
+- Guest: CentOS 8.5, Apache 2.4, MariaDB 10.5, PHP 7.4, Python 2 & 3, Git 2+.
 
 - Leave code and version control files physically outside the VM while virtually accessing them inside the VM.
 - Use any GUI tool (IDEs, browsers, database administration applications, Git clients) outside the VM to access code and data inside the VM.
@@ -35,7 +35,7 @@ vagrant ssh
 
 ### Result
 
-- 64bit Centos 8.3 virtual machine with virtual 64GB HDD, 3GB RAM and updated LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-8).
+- 64bit Centos 8.5 virtual machine with virtual 64GB HDD, 3GB RAM and updated LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-8.5).
 - Custom `.bashrc` to modify bash settings inside the virtual machine.
 - Configure LAMP settings from the host machine instead of inside the virtual machine.
 - Provisioning in `bash` because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
