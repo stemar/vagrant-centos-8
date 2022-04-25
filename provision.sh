@@ -3,6 +3,11 @@ echo '==> Setting time zone'
 timedatectl set-timezone $TIMEZONE
 timedatectl | grep 'Time zone:' | xargs
 
+echo '==> Setting Centos 8 Yum repository'
+
+sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Linux-*
+sed -i 's|^#baseurl=http://mirror.centos.org|baseurl=http://vault.epel.cloud|g' /etc/yum.repos.d/CentOS-Linux-*
+
 echo '==> Cleaning yum cache'
 
 dnf -q -y makecache

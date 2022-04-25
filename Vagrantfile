@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.define settings[:machine][:hostname]
 
   # https://app.vagrantup.com/bento/boxes/centos-8
-  config.vm.box = "bento/centos-8" # 64GB HDD
+  config.vm.box = "bento/centos-8.5" # 64GB HDD
   config.vm.provider "virtualbox" do |vb|
     vb.name   = settings[:machine][:hostname]
     vb.memory = settings[:machine][:memory]
