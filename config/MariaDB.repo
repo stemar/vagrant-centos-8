@@ -1,7 +1,7 @@
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
-name = MariaDB
-baseurl = https://mirror.rackspace.com/mariadb/yum/10.5/centos8-amd64
+name=MariaDB
+baseurl=https://mirror.rackspace.com/mariadb/yum/10.5/centos8-amd64
 module_hotfixes=1
 gpgkey=https://mirror.rackspace.com/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck=1
