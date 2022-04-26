@@ -44,7 +44,7 @@ if [ ! -f /etc/pki/tls/private/localhost.key ]; then
     chmod u=rw /etc/pki/tls/private/localhost.key
 fi
 
-echo '==> Setting MariaDB 10.5 repository'
+echo '==> Setting MariaDB 10.6 repository'
 
 rpm --import --quiet https://mirror.rackspace.com/mariadb/yum/RPM-GPG-KEY-MariaDB
 cp $VM_CONFIG_PATH/MariaDB.repo /etc/yum.repos.d/MariaDB.repo
