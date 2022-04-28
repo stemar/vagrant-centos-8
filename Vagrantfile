@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.define settings[:machine][:hostname]
 
   # https://app.vagrantup.com/bento/boxes/centos-8
-  config.vm.box = "bento/centos-8.5" # 64GB HDD
+  config.vm.box = "bento/centos-8" # 64GB HDD
   config.vm.provider "virtualbox" do |vb|
     vb.name   = settings[:machine][:hostname]
     vb.memory = settings[:machine][:memory]
@@ -35,7 +35,6 @@ Vagrant.configure("2") do |config|
     "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host],
     "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
     "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
-    "TIMEZONE"            => settings[:machine][:timezone],
-    "VM_CONFIG_PATH"      => "/vagrant/config"
+    "TIMEZONE"            => settings[:machine][:timezone]
   }
 end
