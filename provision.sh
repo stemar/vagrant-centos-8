@@ -1,6 +1,6 @@
-echo '==> Setting time zone to '$TIMEZONE
-
 timedatectl set-timezone $TIMEZONE
+
+echo '==> Setting '$(timedatectl | grep 'Time zone:' | xargs)
 
 echo '==> Setting Centos 8 yum repositories'
 
@@ -19,9 +19,9 @@ cp /vagrant/config/bashrc /home/vagrant/.bashrc
 chown vagrant:vagrant /home/vagrant/.bashrc
 dnf -q -y install nano tree zip unzip whois
 
-echo '==> Installing Subversion and Git'
+echo '==> Installing Git and Subversion'
 
-dnf -q -y install svn git
+dnf -q -y install git svn
 
 echo '==> Installing Apache'
 
