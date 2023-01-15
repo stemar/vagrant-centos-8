@@ -24,7 +24,7 @@ In host machine terminal:
 
 ```bash
 mkdir -p ~/VM && cd $_
-git clone --depth 1 https://github.com/stemar/vagrant-centos-8.git centos-8
+git clone --depth=1 https://github.com/stemar/vagrant-centos-8.git centos-8
 cd ~/VM/centos-8
 vagrant up --provision
 vagrant ssh
@@ -39,7 +39,7 @@ vagrant ssh
 
 ### Result
 
-- 64bit Centos 8.5 virtual machine with virtual 64GB HDD, 3GB RAM and updated LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-8.5).
+- 64bit Centos 8.5 virtual machine with virtual 64GB HDD, 3GB RAM and updated LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-8).
 - Custom `.bashrc` to modify bash settings inside the virtual machine.
 - Configure LAMP settings from the host machine instead of inside the virtual machine.
 - Provisioning in `bash` because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
@@ -172,6 +172,8 @@ cat /etc/redhat-release
 httpd -V
 mysql -V
 php -v
+python --version
+python3 --version
 svn --version
 git --version
 openssl version

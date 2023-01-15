@@ -59,15 +59,16 @@ echo '==> Setting PHP 7.4 repository'
     rpm --import --quiet https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
     dnf -q -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     rpm --import --quiet https://rpms.remirepo.net/RPM-GPG-KEY-remi
-    dnf -q -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    dnf -q -y install https://rpms.remirepo.net/enterprise/remi-release-8.5.rpm
+    dnf -q -y module reset php:7.2
     dnf -q -y module enable php:remi-7.4
 } &>/dev/null
 
 echo '==> Installing PHP'
 
 dnf -q -y install php php-cli php-common \
-    php-bcmath php-devel php-gd php-intl php-ldap php-mcrypt php-mysqlnd \
-    php-pear php-soap php-xdebug php-xmlrpc
+    php-bcmath php-devel php-gd php-imap php-intl php-ldap php-mcrypt php-mysqlnd php-opcache \
+    php-pear php-pgsql php-pspell php-soap php-tidy php-xdebug php-xmlrpc php-yaml php-zip
 cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf~
 cp /vagrant/config/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf
 cp /vagrant/config/php.ini.htaccess /var/www/.htaccess
@@ -77,11 +78,15 @@ sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htacces
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
-    mkdir -p /usr/share/adminer
-    curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/adminer.php
-    sed -i 's|{if($F=="")return|{if(true)|' /usr/share/adminer/adminer.php
+    mkdir -p /usr/share/adminer/plugins
+    curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/latest-en.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php -o /usr/share/adminer/plugins/plugin.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/plugins/login-password-less.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/plugins/dump-json.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/plugins/pretty-json-column.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
+cp /vagrant/config/adminer.php /usr/share/adminer/adminer.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
 
