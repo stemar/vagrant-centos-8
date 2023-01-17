@@ -15,7 +15,7 @@
 # HTTP
 - :host: 8000
   :guest: 80
-# dB
+# MySQL
 - :host: 33060
   :guest: 3306
 
