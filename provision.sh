@@ -17,32 +17,21 @@ echo '==> Installing Linux tools'
 
 cp /vagrant/config/bashrc /home/vagrant/.bashrc
 chown vagrant:vagrant /home/vagrant/.bashrc
-dnf -q -y install nano tree zip unzip whois
+dnf -q -y install nano tree zip unzip whois &>/dev/null
 
 echo '==> Installing Git and Subversion'
 
-dnf -q -y install git svn
+dnf -q -y install git svn &>/dev/null
 
 echo '==> Installing Apache'
 
-dnf -q -y install httpd mod_ssl openssl
+dnf -q -y install httpd &>/dev/null
 usermod -a -G apache vagrant
 chown -R root:apache /var/log/httpd
 cp /vagrant/config/localhost.conf /etc/httpd/conf.d/localhost.conf
 cp /vagrant/config/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost.conf
-
-echo '==> Fixing localhost SSL certificate'
-
-if [ ! -f /etc/pki/tls/certs/localhost.crt ]; then
-    cp /vagrant/config/localhost.crt /etc/pki/tls/certs/localhost.crt
-    chmod u=rw /etc/pki/tls/certs/localhost.crt
-fi
-if [ ! -f /etc/pki/tls/private/localhost.key ]; then
-    cp /vagrant/config/localhost.key /etc/pki/tls/private/localhost.key
-    chmod u=rw /etc/pki/tls/private/localhost.key
-fi
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/virtualhost.conf
 
 echo '==> Setting MariaDB 10.6 repository'
 
@@ -51,7 +40,7 @@ cp /vagrant/config/MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 
 echo '==> Installing MariaDB'
 
-dnf -q -y install mariadb-server
+dnf -q -y install mariadb-server &>/dev/null
 
 echo '==> Setting PHP 7.4 repository'
 
@@ -68,7 +57,7 @@ echo '==> Installing PHP'
 
 dnf -q -y install php php-cli php-common \
     php-bcmath php-devel php-gd php-imap php-intl php-ldap php-mcrypt php-mysqlnd php-opcache \
-    php-pear php-pgsql php-pspell php-soap php-tidy php-xdebug php-xmlrpc php-yaml php-zip
+    php-pear php-pgsql php-pspell php-soap php-tidy php-xdebug php-xmlrpc php-yaml php-zip &>/dev/null
 cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf~
 cp /vagrant/config/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf
 cp /vagrant/config/php.ini.htaccess /var/www/.htaccess
@@ -78,21 +67,27 @@ sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htacces
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
-    mkdir -p /usr/share/adminer/plugins
+    mkdir -p /usr/share/adminer/adminer-plugins
     curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/latest-en.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php -o /usr/share/adminer/plugins/plugin.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/plugins/login-password-less.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/plugins/dump-json.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/plugins/pretty-json-column.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/adminer-plugins/login-password-less.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/adminer-plugins/dump-json.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/adminer-plugins/pretty-json-column.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
 cp /vagrant/config/adminer.php /usr/share/adminer/adminer.php
+cp /vagrant/config/adminer-plugins.php /usr/share/adminer/adminer-plugins.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/adminer.conf
 
 echo '==> Installing Python'
 
-dnf -q -y install python2 python3
+dnf -q -y install python2 python3 &>/dev/null
+
+echo '==> Adding HTTP service to firewall'
+
+sudo setenforce Permissive
+firewall-cmd --add-service=http --permanent &>/dev/null
+firewall-cmd --reload &>/dev/null
 
 echo '==> Testing Apache configuration'
 
@@ -115,7 +110,8 @@ systemctl restart mariadb
 systemctl enable mariadb
 mysqladmin -u root password ""
 
-echo '==> Versions:'
+echo
+echo '==> Stack versions <=='
 
 cat /etc/redhat-release
 openssl version
