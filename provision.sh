@@ -85,7 +85,7 @@ dnf -q -y install python2 python3 &>/dev/null
 
 echo '==> Adding HTTP service to firewall'
 
-sudo setenforce Permissive
+setenforce Permissive
 firewall-cmd --add-service=http --permanent &>/dev/null
 firewall-cmd --reload &>/dev/null
 
