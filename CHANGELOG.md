@@ -44,7 +44,7 @@
 
 ## 1.0.1 - 2021-04-26
 
-## Added
+### Added
 
 - Added SSH forwarded ports to `settings.yaml`.
 - Added `:php_error_reporting` to `settings.yaml`.
