@@ -37,7 +37,7 @@
 
 ## 1.0.2 - 2022-04-25
 
-## Changed
+### Changed
 
 - Replaced yum repositories URLs in `/etc/yum.repos.d/CentOS-*` files.
     - Original CentOS mirrors no longer supported.
