@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.3 - 2026-01-18
+## 1.0.4 - 2026-01-18
 
 ### Added
 
@@ -28,12 +28,19 @@
 
 - Removed SSL certificates and this VM hosting HTTPS localhost
 
-## 1.0.2 - 2023-01-16
+## 1.0.3 - 2023-01-16
 
 ### Changed
 
 - Set remi-release-8.5 for PHP to work.
 - Updated Adminer.
+
+## 1.0.2 - 2022-04-25
+
+## Changed
+
+- Replaced yum repositories URLs in `/etc/yum.repos.d/CentOS-*` files.
+    - Original CentOS mirrors no longer supported.
 
 ## 1.0.1 - 2021-04-26
 
