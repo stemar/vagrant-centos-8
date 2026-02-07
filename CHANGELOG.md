@@ -10,7 +10,7 @@
 
 ### Changed
 
-- Modified alias `ll` in `config/bash_aliases`
+- Modified alias `ll` in `config/bashrc`
 - Updated `README.md`
 
 ### Removed
