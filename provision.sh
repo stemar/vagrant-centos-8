@@ -60,7 +60,6 @@ dnf -q -y install php php-cli php-common \
     php-pear php-pgsql php-pspell php-soap php-tidy php-xdebug php-xmlrpc php-yaml php-zip &>/dev/null
 cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf~
 cp /vagrant/config/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf
-sed -i 's|PHP_VERSION|7\.2|' /etc/apache2/sites-available/virtualhost.conf
 cp /vagrant/config/php.ini /var/www/php.ini
 
 echo '==> Installing Adminer'
