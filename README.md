@@ -216,7 +216,7 @@ php -i
 ##### Apache ini settings, original and overrides
 
 ```bash
-grep -Ev '^$|^;' /etc/php/$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")/apache2/php.ini
+grep -Ev '^$|^;' /etc/php.ini
 cat /var/www/php.ini
 ```
 
