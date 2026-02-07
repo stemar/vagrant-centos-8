@@ -90,7 +90,7 @@ Edit values in `settings.yaml`.
 
 Edit `config` files if needed.
 
-- Add/edit lines to `bash_aliases`.
+- Add/edit lines to `bashrc`.
 - Edit `php.ini` values with settings that override Apache's `php.ini`.
 - Edit the `VirtualDocumentRoot` public directory value in `virtualhost.conf`.
 - Add `VirtualHost`s in `virtualhost.conf`.
